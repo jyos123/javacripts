@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploader con AJAX</title>
+    <style>
+        html {
+            box-sizing: border-box;
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+
+        }
+
+        progress { 
+            margin-top: 1rem;
+        }
+
+        .drop-zone {
+            margin-left: auto;
+            margin-right: auto;
+            border: thin dotted #000;
+            width: 80%;
+            height: 40vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .drop-zone.is-active {
+            border: thick dashed #000;
+            background-color: rgba(0, 128, 0, 5);
+            animation: pulse 1.5s infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<main>
+    <article class="drop-zone">
+        <p>Arrastra y suelta tus archivos</p>
+    </article>
+</main>
+<script>
+
+    const $main = document.querySelector("main");
+    const $files = document.getElementById("files");
+    const $dropZone = document.querySelector(".drop-zone");
+
+
+    const uploader = (file) => {
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
+        formData.append("file", file);
+
+        xhr.addEventListener("readystatechange", e => {
+            if (xhr.readyState !== 4) return;
+            if (xhr.status >= 200 && xhr.status < 300) {
+                let json = JSON.parse(xhr.responseText);
+
+                //console.log(xhr.responseText);  
+                console.log(json);
+            } else {
+                let message = xhr.statusText || "Ocurrio un error";
+                console.error(`Erro ${xhr.status}: ${message}`);
+
+            }
+        })
+
+        xhr.open("POST", "assets/uploader.php");
+        xhr.setRequestHeader("enc-type", "multipart/form-data");
+        xhr.send(formData);
+
+    }
+
+    const progressUpload = (file) => {
+        const $progress = document.createElement("progress");
+        const $span = document.createElement("span");
+        $progress.max = 100;
+        $progress.value = 0;
+
+        $main.insertAdjacentElement("beforeend", $progress);
+        $main.insertAdjacentElement("beforeend", $span);
+
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+
+        fileReader.addEventListener("progress", e => {
+            console.log(e);
+            let progress = parseInt(e.loaded * 100 / e.total);
+            $progress.value = progress;
+            $span.innerHTML = `<b>${file.name} - ${progress}%</b>`;
+        });
+
+        fileReader.addEventListener("loadend", e => {
+            uploader(file);
+            setTimeout(() => {
+                $main.removeChild($progress);
+                $main.removeChild($span);
+            }, 3000);
+        })
+
+    }
+
+    $dropZone.addEventListener("dragover", e=>{
+        e.preventDefault();
+        e.stopPropagation();
+        e.target.classList.add("is-active");
+        console.log(e.target.classList);
+        
+    });
+
+    $dropZone.addEventListener("dragleave", e=>{
+        e.preventDefault();
+        e.stopPropagation();
+        e.target.classList.remove("is-active");
+        console.log(e.target.classList);
+        
+        
+    })
+    
+    $dropZone.addEventListener("drop", e=>{
+        e.preventDefault();
+        e.stopPropagation();
+        e.target.classList.add("is-active");
+        // console.log(e);
+        const file = Array.from(e.dataTransfer.files);
+        file.forEach(archivo => progressUpload(archivo));
+        e.target.classList.remove("is-active");
+    })
+</script>
+<body>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

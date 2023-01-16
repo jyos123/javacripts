@@ -1,0 +1,98 @@
+{
+  "Peliculas": [
+    {
+      "Titulo": "El señor de las anillos",
+      "Categoria": "Ficcion",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "Titulo": "El aro",
+      "Categoria": "Terror"
+    },
+    {
+      "id": 4,
+      "Titulo": "La mujer de mis pesadillas",
+      "Categoria": "Comedia"
+    },
+    {
+      "id": 5,
+      "Titulo": "La Tormenta",
+      "Categoria": "Ficcion"
+    },
+    {
+      "Titulo": "La isla",
+      "Categoria": "Terror",
+      "id": 6
+    },
+    {
+      "Titulo": "Ellos",
+      "Categoria": "Terror",
+      "id": 11
+    },
+    {
+      "Titulo": "Paul",
+      "Categoria": "Comedia",
+      "id": 12
+    },
+    {
+      "Titulo": "El nucleo",
+      "Categoria": "Ficcion",
+      "id": 14
+    }
+  ],
+  "TecnologiaProgramacion": [
+    {
+      "id": 1,
+      "Nombre": "PHP",
+      "Tipo": "Lenguaje de Programacion"
+    },
+    {
+      "id": 2,
+      "Nombre": "Laravel",
+      "Tipo": "Frameword"
+    },
+    {
+      "id": 3,
+      "Nombre": "Javascript",
+      "Tipo": "Lenguaje de Programacion"
+    },
+    {
+      "id": 4,
+      "Nombre": "wordPress",
+      "Tipo": "CDM"
+    },
+    {
+      "id": 5,
+      "Nombre": "JAVA",
+      "Tipo": "Lenguaje de Programacion"
+    }
+  ],
+  "Musica": [
+    {
+      "id": 1,
+      "Nombre": "Roberto Carlos",
+      "Genero": "Romantico"
+    },
+    {
+      "id": 2,
+      "Nombre": "Proyeccion",
+      "Genero": "Folklore"
+    },
+    {
+      "id": 3,
+      "Nombre": "Mana",
+      "Genero": "Rock Latino"
+    },
+    {
+      "id": 4,
+      "Nombre": "Molotop",
+      "Genero": "Hip Hop"
+    },
+    {
+      "id": 5,
+      "Nombre": "Juan Gabriel",
+      "Genero": "Romantico"
+    }
+  ]
+}
