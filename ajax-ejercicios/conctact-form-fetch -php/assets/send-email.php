@@ -1,7 +1,7 @@
 <?php
 //echo $_SERVER["HTTP_HOST"];
 if(isset($_POST)){
-    // error_reporting(0);
+    error_reporting(0);
     $name = $_POST["name"];
     $email = $_POST["email"];
     $subject = $_POST["subject"];
@@ -39,7 +39,7 @@ if(isset($_POST)){
             ];
         }
         
-        header("Access-Control-Allow-Origin:*");
+        // header("Access-Control-Allow-Origin:*");
         header('Content-type:application/json');
     echo json_encode($res);
     exit;   
