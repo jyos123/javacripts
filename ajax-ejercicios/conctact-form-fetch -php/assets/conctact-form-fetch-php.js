@@ -39,22 +39,26 @@ function contacForm() {
         const $loader = d.querySelector(".contact-form-loader"),
             $response = d.querySelector(".contact-form-response");
         $loader.classList.remove("none");
-        let res1;
 
-        fetch("https://formsubmit.co/ajax/joliversalamanca@gmail.com", {
+        fetch("https://p-1.ferreteriabulcano.com/send-email.php", {
             method: "POST",
             headers: { 
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                    },
-            body: new FormData(e.target)
+                    //'Accept': 'application/json',
+                    'Access-Control-Allow-Origin':'*'
+
+                    }, 
+                    body: new FormData(e.target),
+                    mode:"cors"        
         })
-            .then(response => {
-                console.log(response);
-                return response.json()
-            })
-            .then(data => {
-                console.log(data);
+            .then(rest => {
+                console.log(rest);
+                return rest.ok ? rest.json() : console.log("no paso");;
+                /* res => {
+                return res.json();
+  */           })
+            .then(json => {
+                console.log(json);
                 datos = data.success;
 
                 if (data.success == "true") {
@@ -65,15 +69,14 @@ function contacForm() {
                     }, 2000);
 
                 } else {
-                    console.log("Nega");
+                    console.log("Negativo");
                     Promise.reject(response);
                 }
 
             })
             .catch(error => {
-                console.log("aviso", datos);
                 $loader.classList.add("none");
-                //console.log("Mi respuesta", error);
+                console.log("Mi respuesta", error);
                 // let message = error.statesText || "Ocurrio un error de envio";
                 // $response.innerHTML = `<p>Error: ${error.status} ; ${error.statusText}</p>`;
                 alert("ERROR DE ENVIO O CONECCION", error);
