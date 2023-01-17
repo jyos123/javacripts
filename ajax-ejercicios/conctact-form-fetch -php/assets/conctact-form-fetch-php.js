@@ -32,24 +32,23 @@ function contacForm() {
 
             }
         }
-    })
+    })   
 
     d.addEventListener("submit", (e) => {
         e.preventDefault();
         const $loader = d.querySelector(".contact-form-loader"),
             $response = d.querySelector(".contact-form-response");
         $loader.classList.remove("none");
-
+        console.log(e.target);
         fetch("https://p-1.ferreteriabulcano.com/send-email.php", {
             method: "POST",
-            headers: { 
-                    'Content-Type': 'application/json',
-                    //'Accept': 'application/json',
-                    // 'Access-Control-Allow-Origin':'*'
-
-                    }, 
-                    body: new FormData(e.target),
-                    mode:"cors"        
+            body: new FormData(e.target),
+            mode: "cors",
+            headers: {
+                'Content-Type': 'application/json',
+                //'Accept': 'application/json',
+                // 'Access-Control-Allow-Origin':'*'
+            },
         })
             .then(rest => {
                 console.log(rest);
