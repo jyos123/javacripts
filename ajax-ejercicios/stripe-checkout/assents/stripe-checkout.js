@@ -17,15 +17,3 @@ fetch("https://api.stripe.com/v1/products",{
     console.log(json);
 })
 
-fetch("https://api.stripe.com/v1/prices",{
-    headers:{
-        Authorization:`Bearer ${STRIPE_KEYS.secret}`,
-    }
-})
-.then((res)=>{
-    console.log(res);
-    return res.json();
-})
-.then((json)=>{
-    console.log(json);
-})
