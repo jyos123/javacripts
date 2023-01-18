@@ -24,4 +24,7 @@ Promise.all([
     prices = jsonRespuesta[1].data;
     console.log(products, prices);
 })
-.catch()
+.catch(error=>{
+    console.log(error);
+})
+
