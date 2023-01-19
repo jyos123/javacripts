@@ -3,7 +3,7 @@ import STRIPE_KEYS from "./strip-key.js"
 const $tacos = document.getElementById("tacos");
 const $template = document.getElementById("taco-template").content;
 const $fragment = document.createDocumentFragment();
-
+console.log($template);
 const fetchOption ={
     
     headers:{
@@ -28,6 +28,12 @@ Promise.all([
         let productoData = productos.filter(producto => producto.id === el.product);
         console.log(productoData);
         $template.querySelector(".taco").setAttribute("data-precio", el.id);
+        $template.querySelector("img").src = productoData[0].images[0];
+        $template.querySelector("img").alt = productoData[0].name;
+        $template.querySelector("figcaption").innerHTML =`
+        ${productoData[0].name} <br> 
+        ${el.unit_amount} ${el.currency}
+        ` 
         let $clone = document.importNode($template, true);
         $fragment.appendChild($clone);
     });
